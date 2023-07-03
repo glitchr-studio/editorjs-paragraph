@@ -1,12 +1,26 @@
 {
-  "name": "editorjs-mention-tool",
-  "version": "1.0.1",
+  "name": "editorjs-mention",
+  "version": "1.0.2",
   "description": "Mention Tool plugin for Editor.js, use @ and $ to print variables.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["mention", "mentiontool", "editorjs", "editor.js", "plugin", "@", "$", "tool", "variables"],
+  "keywords": [
+    "mention",
+    "mentiontool",
+    "editorjs",
+    "editor.js",
+    "plugin",
+    "@",
+    "$",
+    "tool",
+    "variables"
+  ],
   "author": "kreu",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editorjs-mention-tool.git",
+    "type": "git"
+  }
 }

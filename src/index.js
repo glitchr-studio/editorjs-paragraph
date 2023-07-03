@@ -1,5 +1,5 @@
 
-import { create } from './utils';
+import { create } from '@glitchr/editorjs-mention-tool/src/utils';
  
 const keysEnum = {
    '@': {

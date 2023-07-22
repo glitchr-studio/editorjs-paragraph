@@ -1,6 +1,6 @@
 {
   "name": "editorjs-mention",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Mention Tool plugin for Editor.js, use @ and $ to print variables.",
   "main": "src/index.js",
   "scripts": {

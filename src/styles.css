@@ -6,7 +6,6 @@
     position: fixed;
     top: 20px;
     left: 40px;
-    width: 200px;
 
     display: flex;
     flex-direction: column;
@@ -15,7 +14,8 @@
     padding: 0;
     border-radius: 4px;
     z-index: 99;
-    transition: all 0.5s ease-in-out;
+    margin-top:-3px;
+    margin-left:3px;
 }
 
 .user-mention-search-bar{
@@ -29,6 +29,7 @@
     color: black;
     background-color: #e8ebea;
     animation: showSlowly .2s ease;
+    max-width:150px;
 }
 
 @keyframes showSlowly {
@@ -41,7 +42,7 @@
 }
 
 .user-mention-search-bar .search-icon{
-    color: #000;
+    color: darkgrey;
     cursor: default;
 }
 
@@ -51,7 +52,10 @@
     background-color: transparent;
     border: none;
     outline: none;
-    margin-left: -2px;
+    
+    margin-left: 0px;
+    margin-top: -2px;
+    width: 100%;
 }
 
 .search-textbox::placeholder { 
@@ -75,6 +79,7 @@
     box-shadow: 0 10px 20px 6px rgb(104 112 118 / 0.08);
     overflow-y: auto;
     animation: showSlowlyBouncing .2s ease;
+    width: 100%;
 }
 
 @keyframes showSlowlyBouncing {
@@ -150,10 +155,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 70%;
+    max-width: 300px;
 }
 
-.user-list-item-wrapper .user-metadata-container .user-full-name{
+.user-list-item-wrapper .user-metadata-container .user-name{
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -173,15 +178,12 @@
     overflow: auto;
 }
 
-.mention_tool_at{
+
+.user-mention {
+    cursor: pointer;
     background: #0a80f3; 
     color: white;
     text-decoration: none!important;
     padding: 3px 8px;
     border-radius: 999px;
-}
-
-.mention_tool_dollar{
-    color: #1570EF;
-    text-decoration: none!important;
 }

@@ -1,136 +1,94 @@
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
-![Logo](https://i.ibb.co/0F1Pfxb/image.png)
+# Paragraph Tool with alignment for Editor.js
 
+#### If you can help, please push the Star button :)
 
-# Mention Tool Plugin for Editor.js
-## Demo
+![image](https://user-images.githubusercontent.com/2194021/113742029-29803780-973d-11eb-8a66-c599d5d08c16.png)
 
-https://mention-tool-editorjs.vercel.app/
+### If you want to add an alignment to another block
+This is useful
+[editorjs-alignment-blocktune](https://github.com/kaaaaaaaaaaai/editorjs-alignment-blocktune)
 
+## versions
+| version  | Description     |
+| ------ | -------- |
+| @2.x   | support alignment left/center/right |
+| @3.x | support alignment left/center/right/justify |
 
 ## Installation
 
-Install with npm
+### Install via NPM
 
-```bash
-  npm install editorjs-mention-tool
+Get the package
+
+```shell
+npm i --save editorjs-paragraph-with-alignment@3.x
 ```
-    
-## Usage/Examples
+
+Include module at your application
 
 ```javascript
-// Here Import react with useEffect
-import React, { useEffect } from 'react'
-
-// Here EditorJS with some plugins
-import { createReactEditorJS } from 'react-editor-js'
-import Header from "@editorjs/header"
-import Paragraph from '@editorjs/paragraph'
-
-// Here mention module
-import MentionTool from 'editorjs-mention-tool'
-import "editorjs-mention-tool/src/styles.css"
-
-
-
-const CustomEditor = () => {
-
-    const editorCore = React.useRef(null)
-
-    const handleInitialize = React.useCallback((instance) => {
-        editorCore.current = instance
-    }, [])
-    
-    const ReactEditorJS = createReactEditorJS() // Initialize editor
-
-    const EDITOR_JS_TOOLS = {
-        paragraph: {
-            class: Paragraph,
-            inlineToolbar: true,
-        },
-        header: Header,
-    }
-
-    useEffect(() => {
-
-        // Here create new MentionTool with $ accessor key to use it as variable layout
-        new MentionTool({
-            holder: 'editorHolder', // This is the editor Holder ( see below )
-            accessKey: "$", // Access key ( $ or @ )
-            allUsers: [ // The array with the data you want to show when the users type $
-                {
-                    "id": "1234",
-                    "name": "Variable 1",
-                    "slug": "variable1"
-                },
-                {
-                    "id": "12345",
-                    "name": "Thing of v1",
-                    "slug": "variable1.something"
-                },
-            ],
-            baseUrl: '', 
-            searchAPIUrl: ''
-        })
-
-        // Here create new MentionTool with @ accessor key to use it as mention layout
-        new MentionTool({
-            holder: 'editorHolder', // This is the editor Holder ( see below )
-            accessKey: "@", // Access key ( $ or @ )
-            allUsers: [ // The array with the data you want to show when the users type @
-                {
-                    "id": "21029",
-                    "name": "Kyle Ockford",
-                    "avatar": "https://i.pravatar.cc/300",
-                    "slug": "kyleockford"
-                },
-                {
-                    "id": "21030",
-                    "name": "Paige Cortez",
-                    "avatar": "https://avatars.dicebear.com/api/croodles/your-custom-seed.svg",
-                    "slug": "paigecortez"
-                },
-                {
-                    "id": "21031",
-                    "name": "Nyla Warren",
-                    "slug": "nylawarren"
-                },
-                {
-                    "id": "21032",
-                    "name": "Hassan Lee",
-                    "slug": "hassanlee"
-                },
-                {
-                    "id": "21033",
-                    "name": "Domas Rivas",
-                    "avatar": "https://avatars.dicebear.com/api/pixel-art-neutral/kreudev.svg",
-                    "slug": "domasrivas"
-                },
-                {
-                    "id": "21034",
-                    "name": "Arthur Hunt",
-                    "slug": "arthurhunt"
-                },
-            ],
-            baseUrl: '', 
-            searchAPIUrl: ''
-        })
-    }, [])
-    
-    return (
-        <ReactEditorJS onInitialize={handleInitialize} tools={EDITOR_JS_TOOLS} placeholder={`Write something here...`} holder="editorHolder"> 
-            <div id="editorHolder" />
-        </ReactEditorJS>
-    )
-}
-
- // Return the CustomEditor to use by other components.                    
-                     
-export default CustomEditor
+const Paragraph = require('editorjs-paragraph-with-alignment');
 ```
 
+### Download to your project's source dir
 
-## Screenshots
+1. Upload folder `dist` from repository
+2. Add `dist/bundle.js` file to your page.
 
-![App ddd](https://i.ibb.co/yhFCVH9/image.png)
+### Load from CDN
+
+`https://cdn.jsdelivr.net/npm/editorjs-paragraph-with-alignment@3.0.0`
+
+## Usage
+
+The Paragraph tool is included at editor.js by default, so you don't need to connect it manually.
+If you want to connect your customized version of this tool, do not forget to use the [`initialBlock`](https://editorjs.io/configuration#change-the-default-block)
+option of the editor config.
+
+Add a new Tool to the `tools` property of the Editor.js initial config.
+
+```javascript
+var editor = EditorJS({
+  ...
+
+  tools: {
+    ...
+    paragraph: {
+      class: Paragraph,
+      inlineToolbar: true,
+    },
+  }
+
+  ...
+});
+```
+
+## Config Params
+
+The Paragraph Tool supports these configuration parameters:
+
+| Field | Type     | Description        |
+| ----- | -------- | ------------------ |
+| placeholder | `string` | The placeholder. Will be shown only in the first paragraph when the whole editor is empty.  |
+| preserveBlank | `boolean` | (default: `false`) Whether or not to keep blank paragraphs when saving editor data |
+
+## Output data
+
+| Field  | Type     | Description      |
+| ------ | -------- | ---------------- |
+| text   | `string` | paragraph's text |
+| alignment   | `string` | left/center/right/justify |
+
+
+```json
+{
+    "type" : "paragraph",
+    "data" : {
+        "text" : "Check out our projects on a <a href=\"https://github.com/codex-team\">GitHub page</a>.",
+        "alignment": "left"
+    }
+}
+```
 

@@ -1,20 +1,18 @@
 {
   "name": "editorjs-paragraph",
   "version": "1.0.6",
-  "description": "Paragraph tool plugin for Editor.js including alignment and user mention.",
+  "description": "Paragraph tool for Editor.js",
   "main": "src/index.js",
   "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mention",
-    "mentiontool",
-    "alignment",
+    "paragraph",
     "editorjs",
     "editor.js",
     "plugin",
-    "@",
-    "$",
     "tool",
     "variables"
   ],
@@ -23,5 +21,17 @@
   "repository": {
     "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editor-js/paragraph.git",
     "type": "git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
   }
 }

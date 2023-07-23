@@ -1,4 +1,3 @@
-
 import { create } from './utils';
 
 var throttleTimer;

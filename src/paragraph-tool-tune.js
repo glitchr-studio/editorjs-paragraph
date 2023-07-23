@@ -1,8 +1,6 @@
 
 import { create } from './utils';
 
-import './paragraph-tool-tune.css';
-
 var throttleTimer;
 const throttle = (callback, e, time) => {
 
@@ -26,7 +24,7 @@ function observeEditableContentElements(elementId, fn) {
     const callback = function (mutationsList, observer) {
 
         mutationsList.forEach(function(mutation) {
-            
+
             mutation.addedNodes.forEach(function(target) {
 
                 var classList = target.classList;

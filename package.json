@@ -1,5 +1,5 @@
 {
-  "name": "editorjs-paragraph",
+  "name": "editorjs-mention",
   "version": "1.0",
   "description": "Paragraph tool plugin for Editor.js including alignment and user mention.",
   "main": "src/index.js",

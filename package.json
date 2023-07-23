@@ -1,26 +1,23 @@
 {
-  "name": "editorjs-mention",
-  "version": "1.0.4",
-  "description": "Mention Tool plugin for Editor.js, use @ and $ to print variables.",
+  "name": "editorjs-image",
+  "version": "1.0",
+  "description": "Image Tool plugin for Editor.js, including floating, cropping and resize features.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "mention",
-    "mentiontool",
+    "cropper",
+    "cropperjs",
     "editorjs",
     "editor.js",
     "plugin",
-    "@",
-    "$",
-    "tool",
-    "variables"
+    "tool"
   ],
-  "author": "kreu",
-  "license": "ISC",
+  "author": "xkzl",
+  "license": "GPL",
   "repository": {
-    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editorjs-mention-tool.git",
+    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editor-js/image.git",
     "type": "git"
   }
 }

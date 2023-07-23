@@ -1,6 +1,6 @@
 {
-  "name": "editorjs-mention-xx",
-  "version": "1.0",
+  "name": "editorjs-paragraph",
+  "version": "1.0.1",
   "description": "Paragraph tool plugin for Editor.js including alignment and user mention.",
   "main": "src/index.js",
   "scripts": {

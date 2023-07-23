@@ -1,7 +1,7 @@
 
-import { create } from 'utils';
+import { create } from './utils';
 
-import './image-tool-tune.css';
+import './paragraph-tool-tune.css';
 
 var throttleTimer;
 const throttle = (callback, e, time) => {

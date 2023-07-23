@@ -1,5 +1,7 @@
 
-import { create } from 'editorjs-mention/src/utils';
+import { create } from 'utils';
+
+import './image-tool-tune.css';
 
 var throttleTimer;
 const throttle = (callback, e, time) => {

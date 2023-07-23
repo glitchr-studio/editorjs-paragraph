@@ -1,2 +1,2 @@
-const ImageTool = require( "./image-tool-tune" ).default;
-module.exports = ImageTool;
+const Paragraph = require( "./paragraph-tool-tune" ).default;
+module.exports = Paragraph;

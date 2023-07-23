@@ -1,23 +1,27 @@
 {
-  "name": "editorjs-image",
+  "name": "editorjs-paragraph",
   "version": "1.0",
-  "description": "Image Tool plugin for Editor.js, including floating, cropping and resize features.",
+  "description": "Paragraph tool plugin for Editor.js including alignment and user mention.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "cropper",
-    "cropperjs",
+    "mention",
+    "mentiontool",
+    "alignment",
     "editorjs",
     "editor.js",
     "plugin",
-    "tool"
+    "@",
+    "$",
+    "tool",
+    "variables"
   ],
   "author": "xkzl",
   "license": "GPL",
   "repository": {
-    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editor-js/image.git",
+    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editor-js/paragraph.git",
     "type": "git"
   }
 }

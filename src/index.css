@@ -16,6 +16,18 @@
     text-align: justify;
 }
 
+.ce-paragraph--indent[data-indent="1"] { margin-left:1em; }
+.ce-paragraph--indent[data-indent="2"] { margin-left:2em; }
+.ce-paragraph--indent[data-indent="3"] { margin-left:3em; }
+.ce-paragraph--indent[data-indent="4"] { margin-left:4em; }
+.ce-paragraph--indent[data-indent="5"] { margin-left:5em; }
+
+.ce-paragraph--alinea[data-alinea="1"] { text-indent: 1em; }
+.ce-paragraph--alinea[data-alinea="2"] { text-indent: 2em; }
+.ce-paragraph--alinea[data-alinea="3"] { text-indent: 3em; }
+.ce-paragraph--alinea[data-alinea="4"] { text-indent: 4em; }
+.ce-paragraph--alinea[data-alinea="5"] { text-indent: 5em; }
+  
 .ce-paragraph[data-placeholder]:empty::before{
   content: attr(data-placeholder);
   color: #707684;

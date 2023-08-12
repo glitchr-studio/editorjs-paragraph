@@ -16,6 +16,8 @@
     text-align: justify;
 }
 
+.codex-editor svg.shift-stroke path { stroke-width: 0.25; }
+
 .ce-paragraph--indent[data-indent="1"] { margin-left:1em; }
 .ce-paragraph--indent[data-indent="2"] { margin-left:2em; }
 .ce-paragraph--indent[data-indent="3"] { margin-left:3em; }

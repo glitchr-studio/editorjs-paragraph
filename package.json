@@ -1,6 +1,6 @@
 {
   "name": "editorjs-paragraph",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Paragraph tool for Editor.js",
   "main": "src/index.js",
   "scripts": {

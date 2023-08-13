@@ -92,11 +92,11 @@ export default class Paragraph {
         this._data = {
             text: data.text || '',
             alignment: data.alignment || config.defaultAlignment || this.defaultAlignment,
-            shift: { alinea:0, indent:0 }
+            shift: data.shift || { alinea: 0, indent: 0}
         };
+
         this._element = this.drawView();
         this.data = data;
-
         this._preserveBlank = config.preserveBlank !== undefined ? config.preserveBlank : false;
 
     }
@@ -356,15 +356,18 @@ export default class Paragraph {
         let div = document.createElement('DIV');
             div.classList.add(
                 this._CSS.wrapper, this._CSS.block, 
-                this._CSS.alignment[this.data.alignment], 
-                this.data.shift.indent != 0 ? this._CSS.indent : "",
-                this.data.shift.alinea != 0 ? this._CSS.alinea : ""
+                this._CSS.alignment[this.data.alignment]
             );
 
             div.contentEditable = !this.readOnly;
             div.dataset.placeholder = this.api.i18n.t(this._placeholder);
-            div.dataset.shift.alinea = parseInt(this.data.shift.alinea);
-            div.dataset.shift.indent = parseInt(this.data.shift.indent);
+
+            div.dataset.alinea = parseInt(this.data.shift.alinea);
+            if(div.dataset.alinea) div.classList.add(this._CSS.shift.alinea);
+            
+            div.dataset.indent = parseInt(this.data.shift.indent);
+            if(div.dataset.indent) div.classList.add(this._CSS.shift.indent);
+            
             div.innerHTML = this.data.text;
             
             div.addEventListener('keydown', this.onKeyDown);
@@ -415,17 +418,12 @@ export default class Paragraph {
      * Validate Paragraph block data:
      * - check for emptiness
      *
-     * @param {ParagraphData} savedData — data received after saving
+     * @param {ParagraphData} data — data received after saving
      * @returns {boolean} false if saved data is not correct, otherwise true
      * @public
      */
-    validate(savedData) {
-        if (savedData.text.trim() === '' && !this._preserveBlank) {
-            return false;
-        }
-
-        console.log(savedData);
-        return true;
+    validate(data) {
+        return data.text.trim() !== '' || this._preserveBlank;
     }
 
     /**
@@ -435,7 +433,6 @@ export default class Paragraph {
      * @public
      */
     save(toolsContent) {
-        console.log(this.data);
         return Object.assign(this.data, {
             text: toolsContent.innerHTML,
         });
@@ -578,8 +575,6 @@ export default class Paragraph {
                 var prefixName = this.shiftSettings[index].name;
                 var shiftName = prefixName.replace(/\-(up|down)$/, "");
                 var addShift  = prefixName.endsWith("-up");
-
-                // this.data.shift = this._CSS.shift[shiftName];
 
                 this._element.dataset.alinea = this._element.dataset.alinea || 0;
                 var alineaEnabled = (this._element.dataset.alinea > 0 && !addShift) || (this._element.dataset.alinea < this.maxShift && addShift);

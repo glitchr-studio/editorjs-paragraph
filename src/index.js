@@ -10,9 +10,11 @@ export default class Paragraph {
     }
     
     constructor({data, config, api, readOnly}) {
+        
         this.api = api;
         this.config = config;
         this.readOnly = readOnly;
+        
         this._CSS = {
             block: this.api.styles.block,
             wrapper: 'ce-paragraph',
@@ -57,7 +59,6 @@ export default class Paragraph {
         ];
 
         this.tabSpace = 8;
-
         this.maxShift = 5;
         this.shiftSettings = [
             {
@@ -99,6 +100,20 @@ export default class Paragraph {
         this.data = data;
         this._preserveBlank = config.preserveBlank !== undefined ? config.preserveBlank : false;
 
+        // 
+        // if( this.api.blocks.getBlocksCount() >= this.maxBlocks ) {
+
+        //     console.log(this._element);
+        //     console.log(this._element.parentNode);
+        //     setTimeout(function() { 
+
+        //         console.log(this._element.parentNode);
+        //     }, 1);
+        // }
+
+        // this.singleBlock = true;
+        // this.maxBlocks = 2;
+        // this.maxChars = 100;
     }
 
     /**
@@ -294,6 +309,18 @@ export default class Paragraph {
 
     onKeyDown(e) {
 
+        // @TODO:
+        // console.log(this.api.blocks.getCurrentBlockIndex());
+        // if (e.key === "Enter")
+        // {
+        //     if(this.api.blocks.getBlocksCount() >= this.maxBlocks)
+        //     {
+        //         console.log(this.api.blocks.getCurrentBlockIndex());
+        //         e.stopPropagation();
+        //         return false;
+        //     }
+        // }
+
         // Prevent from opening inliner tool or changing paragraph
         if (e.key === "Tab") {
 
@@ -333,7 +360,7 @@ export default class Paragraph {
         }
     }
 
-    onFocusIn(el) { }
+    onFocusIn() { }
     
     onFocusOut() {
 
@@ -354,6 +381,7 @@ export default class Paragraph {
     drawView() {
 
         let div = document.createElement('DIV');
+
             div.classList.add(
                 this._CSS.wrapper, this._CSS.block, 
                 this._CSS.alignment[this.data.alignment]
@@ -382,7 +410,7 @@ export default class Paragraph {
 
         return div;
     }
-
+ 
     /**
      * Return Tool's view
      * @returns {HTMLDivElement}
@@ -500,7 +528,7 @@ export default class Paragraph {
 
         return {
             text: {
-                br: true,
+                br: true
             },
             alignment: {},
             shift: {

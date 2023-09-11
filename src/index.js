@@ -99,21 +99,6 @@ export default class Paragraph {
         this._element = this.drawView();
         this.data = data;
         this._preserveBlank = config.preserveBlank !== undefined ? config.preserveBlank : false;
-
-        // 
-        // if( this.api.blocks.getBlocksCount() >= this.maxBlocks ) {
-
-        //     console.log(this._element);
-        //     console.log(this._element.parentNode);
-        //     setTimeout(function() { 
-
-        //         console.log(this._element.parentNode);
-        //     }, 1);
-        // }
-
-        // this.singleBlock = true;
-        // this.maxBlocks = 2;
-        // this.maxChars = 100;
     }
 
     /**
@@ -309,18 +294,6 @@ export default class Paragraph {
 
     onKeyDown(e) {
 
-        // @TODO:
-        // console.log(this.api.blocks.getCurrentBlockIndex());
-        // if (e.key === "Enter")
-        // {
-        //     if(this.api.blocks.getBlocksCount() >= this.maxBlocks)
-        //     {
-        //         console.log(this.api.blocks.getCurrentBlockIndex());
-        //         e.stopPropagation();
-        //         return false;
-        //     }
-        // }
-
         // Prevent from opening inliner tool or changing paragraph
         if (e.key === "Tab") {
 
@@ -428,8 +401,12 @@ export default class Paragraph {
      */
     merge(data) {
 
+        var selection = this.getCurrentSelection();
+            selection.length = selection.start;
+            selection.start = 0;
+
         let newData = {
-            text: this.data.text += data.text,
+            text: this.getTextFromSelection(selection) + data.text,
             alignment: this.data.alignment,
             shift: {
                 alinea:this.data.shift.alinea,
@@ -437,8 +414,11 @@ export default class Paragraph {
             }
         };
 
-        this._element.innerHTML = this.data.text;
+        var selection = this.getCurrentSelection();
 
+        this._element.innerHTML = this.data.text;
+        setTimeout(() => this.createRangeFromSelection(selection), 0);
+        
         this.data = newData;
     }
 

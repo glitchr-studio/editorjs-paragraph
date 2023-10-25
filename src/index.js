@@ -8,13 +8,13 @@ export default class Paragraph {
     static get isReadOnlySupported() {
         return true;
     }
-    
+
     constructor({data, config, api, readOnly}) {
-        
+
         this.api = api;
         this.config = config;
         this.readOnly = readOnly;
-        
+
         this._CSS = {
             block: this.api.styles.block,
             wrapper: 'ce-paragraph',

@@ -508,7 +508,8 @@ export default class Paragraph {
 
         return {
             text: {
-                br: true
+                br: true,
+                div: true
             },
             alignment: {},
             shift: {

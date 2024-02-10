@@ -24,11 +24,23 @@
 .ce-paragraph--indent[data-indent="4"] { margin-left:4em; }
 .ce-paragraph--indent[data-indent="5"] { margin-left:5em; }
 
+.ce-paragraph--indent[data-indent="1"] > div { margin-left:0em; }
+.ce-paragraph--indent[data-indent="2"] > div { margin-left:0em; }
+.ce-paragraph--indent[data-indent="3"] > div { margin-left:0em; }
+.ce-paragraph--indent[data-indent="4"] > div { margin-left:0em; }
+.ce-paragraph--indent[data-indent="5"] > div { margin-left:0em; }
+
 .ce-paragraph--alinea[data-alinea="1"] { text-indent: 1em; }
 .ce-paragraph--alinea[data-alinea="2"] { text-indent: 2em; }
 .ce-paragraph--alinea[data-alinea="3"] { text-indent: 3em; }
 .ce-paragraph--alinea[data-alinea="4"] { text-indent: 4em; }
 .ce-paragraph--alinea[data-alinea="5"] { text-indent: 5em; }
+
+.ce-paragraph--alinea[data-alinea="1"] > div { text-indent: 0em; }
+.ce-paragraph--alinea[data-alinea="2"] > div { text-indent: 0em; }
+.ce-paragraph--alinea[data-alinea="3"] > div { text-indent: 0em; }
+.ce-paragraph--alinea[data-alinea="4"] > div { text-indent: 0em; }
+.ce-paragraph--alinea[data-alinea="5"] > div { text-indent: 0em; }
   
 .ce-paragraph[data-placeholder]:empty::before{
   content: attr(data-placeholder);

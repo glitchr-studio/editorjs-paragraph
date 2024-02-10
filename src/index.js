@@ -441,8 +441,16 @@ export default class Paragraph {
      * @public
      */
     save(toolsContent) {
+        
+        var str = toolsContent.innerHTML;
+
+        var _tmp; // Fix <div></div> issue on safari
+        while( str != (_tmp = str.replace(/<div>(.*?)<\/div>/g, '<br>$1')) ) {
+            str = _tmp;
+        }
+
         return Object.assign(this.data, {
-            text: toolsContent.innerHTML,
+            text: str,
         });
     }
 

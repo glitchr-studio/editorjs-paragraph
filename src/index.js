@@ -442,7 +442,7 @@ export default class Paragraph {
      */
     save(toolsContent) {
         
-        var str = toolsContent.innerHTML;
+        var str = toolsContent.innerHTML.replace(/&nbsp;/g,' ');
 
         var _tmp; // Fix <div></div> issue on safari
         while( str != (_tmp = str.replace(/<div>(.*?)<\/div>/g, '<br>$1')) ) {

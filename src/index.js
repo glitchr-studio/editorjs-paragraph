@@ -394,32 +394,82 @@ export default class Paragraph {
     }
 
     /**
-     * Method that specified how to merge two Text blocks.
-     * Called by Editor.js by backspace at the beginning of the Block
-     * @param {ParagraphData} data
-     * @public
+     * Merge another block into this one (preserve HTML),
+     * insert one space between them, and place caret after that space.
      */
     merge(data) {
+        // get current caret position in this block (character index within text)
+        const current = this.getCurrentSelection() || { start: 0, length: 0 };
 
-        var selection = this.getCurrentSelection();
-            selection.length = selection.start;
-            selection.start = 0;
+        // Defensive fallback: if element missing or start not a number -> simple concat
+        if (!this._element || typeof current.start !== 'number') {
+            this.data = {
+                text: (this.data.text || '') + '&nbsp;' + (data.text || ''),
+                alignment: this.data.alignment,
+                shift: { alinea: this.data.shift.alinea, indent: this.data.shift.indent }
+            };
+            this._element.innerHTML = this.data.text || '';
+            return;
+        }
 
-        let newData = {
-            text: this.getTextFromSelection(selection) + data.text,
+        // Build a Range that covers everything from start=0 to caret position (text offset)
+        let leftRange;
+        try {
+            leftRange = this.getRangeFromElement(this._element, 0, current.start);
+        } catch (err) {
+            // fallback: simple concat if building range fails
+            this.data = {
+                text: (this.data.text || '') + '&nbsp;' + (data.text || ''),
+                alignment: this.data.alignment,
+                shift: { alinea: this.data.shift.alinea, indent: this.data.shift.indent }
+            };
+            this._element.innerHTML = this.data.text || '';
+            return;
+        }
+
+        // Get left HTML (preserve tags)
+        const leftFragment = leftRange.cloneContents();
+        const tmp = document.createElement('div');
+        tmp.appendChild(leftFragment);
+        const leftHTML = tmp.innerHTML;
+
+        // Compute textual length of left side (used to place caret)
+        const leftTextLength = leftRange.toString().length;
+
+        // Incoming right side is expected as HTML
+        const rightHTML = data && data.text ? data.text : '';
+
+        // Insert a single non-breaking space between blocks to ensure it remains visible.
+        // Using &nbsp; ensures the browser doesn't collapse the added separator.
+        const mergedHTML = leftHTML + '&nbsp;' + rightHTML;
+
+        // Store and apply
+        const newData = {
+            text: mergedHTML,
             alignment: this.data.alignment,
             shift: {
-                alinea:this.data.shift.alinea,
-                indent:this.data.shift.indent
+                alinea: this.data.shift.alinea,
+                indent: this.data.shift.indent
             }
         };
 
-        var selection = this.getCurrentSelection();
-
-        this._element.innerHTML = this.data.text;
-        setTimeout(() => this.createRangeFromSelection(selection), 0);
-        
         this.data = newData;
+        this._element.innerHTML = this.data.text || '';
+
+        // Restore caret right after the inserted non-breaking space.
+        // The caret text index = leftTextLength + 1 (the &nbsp; counts as one character)
+        const restoreSelection = {
+            start: leftTextLength + 1,
+            length: 0,
+            index: this.api.blocks.getCurrentBlockIndex(),
+            element: this._element
+        };
+
+        // Delay to allow DOM updates, then create range from character index
+        setTimeout(() => {
+            try { this.createRangeFromSelection(restoreSelection); }
+            catch (e) { /* swallow silently if restore fails */ }
+        }, 0);
     }
 
     /**

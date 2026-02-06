@@ -241,18 +241,24 @@ export default class Paragraph {
     }
 
     replaceSelectionWith(html, selection, selectPastedContent = false) {
-
-        var node = document.createElement("span");
-            node.innerHTML = html;
-
         var range = this.createRangeFromSelection(selection);
-            range.deleteContents();
+        range.deleteContents();
+        if (html === '<br>') {
+            var br = document.createElement('br');
+            range.insertNode(br);
+            // Move cursor after <br>
+            range.setStartAfter(br);
+            range.setEndAfter(br);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+        } else {
+            var node = document.createElement("span");
+            node.innerHTML = html;
             range.insertNode(node);
-
-        if(selectPastedContent) selection.length = html.textContent;
-        else selection.length = 0;
-
-        this.createRangeFromSelection(selection);
+            if(selectPastedContent) selection.length = html.textContent;
+            else selection.length = 0;
+            this.createRangeFromSelection(selection);
+        }
     }
 
     eraseSelection(selection) { this.replaceSelectionWith("", selection); }
@@ -331,6 +337,13 @@ export default class Paragraph {
                 this.createRangeFromSelection(selection);
             }
         }
+
+        // Handle soft line return (Shift+Enter)
+        if (e.key === "Enter" && e.shiftKey) {
+            e.preventDefault();
+            this.insertAtCaret('<br>');
+            return;
+        }
     }
 
     onFocusIn() { }
@@ -395,6 +408,7 @@ export default class Paragraph {
 
     /**
      * Merge another block into this one (preserve HTML),
+     * trim trailing whitespace from the first block,
      * insert one space between them, and place caret after that space.
      */
     merge(data) {
@@ -403,8 +417,10 @@ export default class Paragraph {
 
         // Defensive fallback: if element missing or start not a number -> simple concat
         if (!this._element || typeof current.start !== 'number') {
+            // Trim trailing whitespace from this block's text
+            const leftText = (this.data.text || '').replace(/\s+$/, '');
             this.data = {
-                text: (this.data.text || '') + '&nbsp;' + (data.text || ''),
+                text: leftText + '&nbsp;' + (data.text || ''),
                 alignment: this.data.alignment,
                 shift: { alinea: this.data.shift.alinea, indent: this.data.shift.indent }
             };
@@ -418,8 +434,9 @@ export default class Paragraph {
             leftRange = this.getRangeFromElement(this._element, 0, current.start);
         } catch (err) {
             // fallback: simple concat if building range fails
+            const leftText = (this.data.text || '').replace(/\s+$/, '');
             this.data = {
-                text: (this.data.text || '') + '&nbsp;' + (data.text || ''),
+                text: leftText + '&nbsp;' + (data.text || ''),
                 alignment: this.data.alignment,
                 shift: { alinea: this.data.shift.alinea, indent: this.data.shift.indent }
             };
@@ -431,10 +448,13 @@ export default class Paragraph {
         const leftFragment = leftRange.cloneContents();
         const tmp = document.createElement('div');
         tmp.appendChild(leftFragment);
-        const leftHTML = tmp.innerHTML;
+        let leftHTML = tmp.innerHTML;
+
+        // Trim trailing whitespace from leftHTML
+        leftHTML = leftHTML.replace(/(\s|&nbsp;)+$/i, '');
 
         // Compute textual length of left side (used to place caret)
-        const leftTextLength = leftRange.toString().length;
+        const leftTextLength = leftRange.toString().replace(/\s+$/, '').length;
 
         // Incoming right side is expected as HTML
         const rightHTML = data && data.text ? data.text : '';
@@ -580,7 +600,7 @@ export default class Paragraph {
     /**
      * Used by Editor paste handling API.
      * Provides configuration to handle P tags.
-     *
+     * 
      * @returns {{tags: string[]}}
      */
     static get pasteConfig() {

@@ -19,8 +19,8 @@
   "author": "xkzl",
   "license": "GPL",
   "repository": {
-    "url": "ssh://git@gitlab.glitchr.dev:public-repository/javascript/editor-js/paragraph.git",
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/glitchr-studio/editorjs-paragraph.git"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
